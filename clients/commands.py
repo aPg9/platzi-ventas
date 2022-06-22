@@ -1,7 +1,7 @@
-from multiprocessing.connection import Client
 import click
 from clients.services import ClientsService
 from clients.models import Client
+
 
 @click.group
 def clients():
@@ -26,21 +26,37 @@ def clients():
             type = str,
             prompt=True,
             help="The client position")
+# @click.option("-u", "uid",
+#             type = str,
+#             prompt = True,
+#             help = "The client uid")
 @click.pass_context
 def create(ctx, name, company, email, position):
     """Create a new client"""
     client = Client(name, company, email, position)
-    client_service = ClientsService(ctx.obj["Clients_table"])
+    client_service = ClientsService(ctx.obj["clients_table"])
 
     client_service.create_client(client)
-    
+
 
 @clients.command()
 @click.pass_context
 def list(ctx):
     """List all clietns"""
-    pass
+    client_service = ClientsService(ctx.obj["clients_table"])  
+    clients_list = client_service.list_clients()   
 
+    click.echo(" ID  |  NAME  |  COMPANY  |  EMAIL  |  POSITION  |")     #-----> Permite que imprima en todos los S.O
+    click.echo("=" * 100)
+
+    for client in clients_list:
+        click.echo('{uid} | {name} | {company} | {email} | {position}'.format(
+            uid=client['uid'],
+            name=client['name'],
+            company=client['company'],
+            email=client['email'],
+            position=client['position']))    
+        
 
 @clients.command()
 @click.pass_context
