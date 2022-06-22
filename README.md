@@ -1,6 +1,6 @@
 Platzi Sales
 
-This repository contains an example of a CLI project maked with python and click library, this about an app that CRUD clients in a CSV format.
+This repository contains an example of a CLI project maded with python and click library, this about an app that CRUD clients in a CSV format.
 
 Install: You must have PIP, to install this app. In your terminal locate the folder where you donwload the code. (Before install this I recommend to you actvate a venv)
 
