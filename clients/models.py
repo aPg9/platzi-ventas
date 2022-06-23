@@ -7,11 +7,11 @@ class Client:
         self.company = company
         self.email = email
         self.position = position
-        self.uid = uid or uuid.uuid4     #-----> Estandar de la industria
+        self.uid = uid or uuid.uuid4()     #-----> Estandar de la industria
 
     def to_dict(self):
         return vars(self)
 
     @staticmethod     #-----> Metodo que se puede ejecutar sin una instancia de clase
     def schema():
-        return ["name", "company", "email", "position", "uid"]
+        return ["name", "company", "email", "position", "uid" ]
