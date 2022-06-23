@@ -39,35 +39,12 @@ class ClientsService:     #-----> Aca se guarda la logica de negocio
         os.remove(self.table_name)
         os.rename(tmp_table_name, self.table_name)
 
-    def delete_client(self, client_to_del):
-        # """Deletes a client.
-        
-        # Time Complexity: O(n)
-
-        # Args:
-        #     client_uid (str): The client's UID.
-        # """
-
-        # if clients is None:
-        #     clients = self.list_clients()
-
-        # updated_clients: list[dict] = []
-
-        # client: dict
-        # for client in clients:
-        #     if client['uid'] != client_uid:
-        #         updated_clients.append(client)
-
-        # self._save_to_disk(updated_clients)
-    
-    # def delete_client(self, del_client): 
-        clients_list = self.list_clients()
-        new_clients_list = []        
+    def delete_client(self, client_to_del):           
+        clients_list = self.list_clients()                
 
         for client in clients_list:
             if client["uid"] == client_to_del.uid:
                 clients_list.remove(client)
-                clients_list = new_clients_list
-                
+                                
 
-        self._save_to_disk(new_clients_list)
+        self._save_to_disk(clients_list)
