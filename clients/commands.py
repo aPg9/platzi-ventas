@@ -60,7 +60,6 @@ def list(ctx):
 
 @clients.command()
 @click.option("-u", "uid", type=str, prompt=True, help = "The client uid")
-# @click.argument("client_uid", type=str)
 @click.pass_context
 def update(ctx, uid:str):
     """Update a client"""
@@ -88,39 +87,20 @@ def _update_client_flow(client):
 
 @clients.command()
 @click.option("-u", "uid", type=str, prompt=True, help = "The client uid")
-# @click.argument("-u", "uid", type=str)
 @click.pass_context
 def delete(ctx, uid:str):
-    """Deletes a client
-    Time Complexity: O(n)
-    """
+    """Delete a client"""
+
     client_service = ClientsService(ctx.obj["clients_table"])
     client_list = client_service.list_clients()
-
-    # found: bool = False
-    # c: dict
-    # for c in clients:
-    #     if c["uid"] == uid:
-    #         found = True
-    #         break
-    
-    # if not found:
-    #     click.echo("Client not found")
-    #     return
-    # client_service.delete_client(uid, clients)
-
     client = [client for client in client_list if client["uid"] == uid]
 
-    if client in client_list:
-        deleted_client = _delete_client_flow(Client(**client[0]))
-        if deleted_client:
-            client = client_service.delete_client(uid, clients)        
-            click.echo("Client has been deleted correctly!!")
-        else:
-            click.echo("Client still on clients list!!")
+    if client:
+       client = Client(**client[0])
+       client = client_service.delete_client(client)
+       click.echo("Client deleted!! ")
+    else:
+        click.echo("Client not found!! ")
 
-def _delete_client_flow(client):
-    click.echo(f"The client wiht uid {client.uid} will be deleted!! ")           
-    return client
 
 all = clients
