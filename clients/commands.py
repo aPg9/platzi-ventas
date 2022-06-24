@@ -98,7 +98,7 @@ def delete(ctx, uid:str):
     if client:
        client = Client(**client[0])
        client = client_service.delete_client(client)
-       click.echo("Client deleted!! ")
+       click.echo("Client has been deleted!! ")
     else:
         click.echo("Client not found!! ")
 
